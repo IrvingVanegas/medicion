@@ -9,10 +9,9 @@ import {
     Legend,
     ArcElement,
   } from "chart.js";
-import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 
-function Graph (){
+function GraphTotal (){
     ChartJS.register(
         CategoryScale,
         LinearScale,
@@ -69,4 +68,4 @@ function Graph (){
       return <Line datasetIdKey='id' options={options} data={data} />;
 }
 
-export default Graph
+export default GraphTotal
