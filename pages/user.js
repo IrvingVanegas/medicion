@@ -1,14 +1,37 @@
 import { Container, Box, Heading, VStack, Button} from "@chakra-ui/react"
 import Head from "next/head"
 import { useRouter } from 'next/router'
-import { useEffect, useState } from "react"
-import DataTable from "react-data-table-component"
 import Navbar from "../components/navbar"
 
-const User = () =>{
-    const [usuarios, setUsuarios] = useState([]);
+const User = (props) =>{
     const router = useRouter();
-
+    const {posts} = props;
+    console.log(posts);
+    const data=posts.map(
+        (item)=> <tr>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {item.idusuarios}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        &nbsp;&nbsp;
+                        {item.nombre}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {item.apellido}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        {item.email}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>{item.tipo}</td>
+                  </tr>
+    )
     return(
         <Box>
             <Head>
@@ -30,14 +53,28 @@ const User = () =>{
                             </Heading>
                         </Box>
                     </Box>
+                    <Box h={10} />
 
-                    <Box borderColor="#0d44db" bg="#0ddbca"  borderWidth='1px' borderRadius='lg' overflow='hidden' h={300} p={5} mb={6} align="center">
+                    <Box borderColor="#0d44db" bg="#0ddbca"  borderWidth='1px' borderRadius='lg' overflow='hidden' p={5} mb={6} align="center">
                         <main className="registro">
                             <VStack paddingStart="1.5rem" maxW="container.md">
-                                <DataTable
-                                    columns={columns}
-                                    data={data}
-                                />
+                                <div>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>Correo</th>
+                                            <th>Tipo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {data}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br/>
                                 <Button
                                     mt={4}
                                     size="lg"
@@ -55,45 +92,14 @@ const User = () =>{
     )
 }
 
-const columns = [
-    {
-        name: 'Id',
-        selector: row => row.id,
-    },
-    {
-        name: 'Nombre',
-        selector: row => row.name,
-    },
-    {
-        name: 'Apellidos',
-        selector: row => row.lastName,
-    },
-    {
-        name: 'Tipo',
-        selector: row => row.tipo,
-    },
-    {
-        name: 'Correo',
-        selector: row => row.email,
-    },
-];
-
-const data = [
-    {
-        id: 1,
-        name: 'Irving',
-        lastName: 'Vanegas',
-        tipo: 'Administrador',
-        email: 'irving@mail.com',
-    },
-    {
-        id: 2,
-        name: 'John',
-        lastName: 'Smith',
-        tipo: 'Usuario',
-        email: 'john@mail.com',
-    },
+export async function getStaticProps(context) {
     
-]
+    const res = await fetch("http://localhost:3000/api/showUser");
+    const posts = await res.json();
+      
+    return {
+    props: {posts},
+    };
+}
 
 export default User
