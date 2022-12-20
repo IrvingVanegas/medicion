@@ -10,8 +10,14 @@ import {
     ArcElement,
   } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { useEffect, useState } from "react";
 
 function GraphTotal (){
+  const [capturas, setCapturas] = useState([]);
+  const [watts, setWatts] = useState(
+    []
+  );
+
     ChartJS.register(
         CategoryScale,
         LinearScale,
@@ -31,40 +37,74 @@ function GraphTotal (){
           },
           title: {
             display: true,
-            text: "Mes",
+            text: "Total de Kilowatts en los ultimos 5 dias",
           },
         },
       };
     
+      useEffect(() => {
+        let lista = [];
+        watts.map((wa) => {
+          lista.push(wa.captura);
+        });
+        setCapturas(lista);
+    
+        return () => {
+          setCapturas([])
+        };
+      }, [watts]);
+    
+      let datasets = capturas.map((c) => {
+        return {
+          label: c,
+          data: watts.map((w) => w.nWatts),
+          backgroundColor: "rgb(255, 99, 132)",
+        };
+      });
+    
       const data = {
-        labels: ["Enero", "Febrero", "Marzo", "Abril"],
+        labels: capturas,
         datasets: [
           {
-            id: 1,
-            label: "A",
-            data: [30, 50, 10, 80],
+            label: "",
+            data: watts.map((wa) => wa.nWatts),
             backgroundColor: [
-              "rgb(255, 99, 132)",
-              "rgb(54, 162, 235)",
-              "rgb(255, 205, 86)",
-              "rgb(255, 100, 90)",
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(255, 159, 64, 0.2)",
+              "rgba(255, 205, 86, 0.2)",
             ],
-            hoverOffset: 4,
-          },
-          {
-            id: 2,
-            label: "B",
-            data: [10, 70, 20, 30],
-            backgroundColor: [
-              "rgb(255, 99, 132)",
-              "rgb(54, 162, 235)",
-              "rgb(255, 205, 86)",
-              "rgb(255, 100, 90)",
-            ],
-            hoverOffset: 4,
           },
         ],
       };
+
+      useEffect(() => {
+        const getCapturas = async () => {
+          let respuesta = await sql_query(`
+              SELECT * FROM totalwatts
+              ORDER BY idwatts DESC
+              LIMIT 5
+          `);
+    
+          let lista = [];
+          respuesta.data.map((com) => {
+            if (com.watts !== undefined) {
+              lista.push({
+                captura: com.captura,
+                nWatts: com.watts.length,
+              });
+            } else {
+              lista.push({
+                capturas: com.captura,
+                nWatts: 0,
+              });
+            }
+          });
+          setWatts(lista);
+        };
+    
+        getCapturas();
+      }, []);
+      
       return <Line datasetIdKey='id' options={options} data={data} />;
 }
 

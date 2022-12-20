@@ -55,7 +55,7 @@ const Navbar = props =>{
                     width={{base: 'full', md: 'auto'}}
                 >
                     <LinkItem href="/user" path={path}>
-                        Registro
+                        Usuarios
                     </LinkItem>
                     <LinkItem href="/history" path={path}>
                         Historial

@@ -1,9 +1,72 @@
 import { Container, Box, Heading, VStack, Stack} from "@chakra-ui/react"
 import Head from "next/head"
 import Navbar from "../components/navbar"
-import GraphTotal from "../components/chart/chartTotal"
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement,
+  } from "chart.js";
+import { Line } from "react-chartjs-2";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
+    const {posts} = props;
+    console.log(posts);
+
+    let listaCap = [];
+    posts.map((wa) => {
+        listaCap.push(wa.captura);
+    });
+
+    let listaWatts =[];
+    posts.map((wa) => {
+        listaWatts.push(wa.watts);
+    });
+
+    ChartJS.register(
+        CategoryScale,
+        LinearScale,
+        PointElement,
+        LineElement,
+        Title,
+        Tooltip,
+        Legend,
+        ArcElement
+      );
+
+      const options = {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "right",
+          },
+          title: {
+            display: true,
+            text: "Total de Kilowatts en los ultimos 5 dias",
+          },
+        },
+      };
+
+      const data = {
+        labels: listaCap,
+        datasets: [{
+            label:"",
+            data:listaWatts,
+            backgroundColor: [
+                "rgb(255, 99, 132)",
+                "rgb(54, 162, 235)",
+                "rgb(255, 205, 86)",
+                "rgb(255, 100, 90)",
+              ],
+              hoverOffset: 4,
+        }]
+      }
+    
 
     return (
 
@@ -32,7 +95,7 @@ const Dashboard = () => {
                     </Box>
 
                     <Box borderColor="#0d44db"  borderWidth='1px' borderRadius='lg' overflow='hidden' h={400} p={5} mb={6} align="center">
-                        <GraphTotal />
+                        <Line datasetIdKey='id' options={options} data={data} />
                     </Box>
                 </Container>
 
@@ -77,5 +140,15 @@ const Dashboard = () => {
         </Box>
     )
 }
+
+export async function getStaticProps(context) {
+    
+    const res = await fetch("http://localhost:3000/api/showTotal");
+    const posts = await res.json();
+      
+    return {
+    props: {posts},
+    };
+  }
 
 export default Dashboard;
