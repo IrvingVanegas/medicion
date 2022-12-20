@@ -17,16 +17,19 @@ import { Line } from "react-chartjs-2";
 const Dashboard = (props) => {
     const {posts} = props;
     console.log(posts);
-
+    const count = Object.keys(posts).length;
     let listaCap = [];
+    let listaWatts =[];
+    
     posts.map((wa) => {
         listaCap.push(wa.captura);
     });
-
-    let listaWatts =[];
     posts.map((wa) => {
         listaWatts.push(wa.watts);
     });
+
+    listaCap.reverse();
+    listaWatts.reverse();
 
     ChartJS.register(
         CategoryScale,
