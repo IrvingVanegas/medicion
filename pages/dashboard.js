@@ -1,75 +1,11 @@
-import { Container, Box, Heading, VStack, Stack} from "@chakra-ui/react"
+import { Container, Box, Heading, VStack, Stack, useColorModeValue, Button} from "@chakra-ui/react"
+import Image from "next/image";
 import Head from "next/head"
 import Navbar from "../components/navbar"
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-    ArcElement,
-  } from "chart.js";
-import { Line } from "react-chartjs-2";
+import { ArrowRightIcon } from "@chakra-ui/icons";
 
-const Dashboard = (props) => {
-    const {posts} = props;
-    console.log(posts);
-    const count = Object.keys(posts).length;
-    let listaCap = [];
-    let listaWatts =[];
-    
-    posts.map((wa) => {
-        listaCap.push(wa.captura);
-    });
-    posts.map((wa) => {
-        listaWatts.push(wa.watts);
-    });
-
-    listaCap.reverse();
-    listaWatts.reverse();
-
-    ChartJS.register(
-        CategoryScale,
-        LinearScale,
-        PointElement,
-        LineElement,
-        Title,
-        Tooltip,
-        Legend,
-        ArcElement
-      );
-
-      const options = {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: "right",
-          },
-          title: {
-            display: true,
-            text: "Total de Kilowatts en los ultimos 5 dias",
-          },
-        },
-      };
-
-      const data = {
-        labels: listaCap,
-        datasets: [{
-            label:"",
-            data:listaWatts,
-            backgroundColor: [
-                "rgb(255, 99, 132)",
-                "rgb(54, 162, 235)",
-                "rgb(255, 205, 86)",
-                "rgb(255, 100, 90)",
-              ],
-              hoverOffset: 4,
-        }]
-      }
-    
+const Dashboard = () => {
+    const imageHeader = '/images/agrovoltaica_11zon-768x439.jpg'
 
     return (
 
@@ -85,73 +21,57 @@ const Dashboard = (props) => {
             <VStack>
                 <Navbar/>
 
-                <Box h={20} />
+                <Box h={10} />
 
                 <Container maxW="container.md">
 
                     <Box display={{md: 'flex'}}>
                         <Box flexGrow={1}>
-                            <Heading as="h2" variant="page-title">
-                                Datos Actuales
+                            <Heading as="h2" variant="page-title" align="center">
+                                Interfaz de Visualizacion Agrovoltaica
                             </Heading>
                         </Box>
                     </Box>
-
-                    <Box borderColor="#0d44db"  borderWidth='1px' borderRadius='lg' overflow='hidden' h={400} p={5} mb={6} align="center">
-                        <Line datasetIdKey='id' options={options} data={data} />
-                    </Box>
-                </Container>
-
-                <Container>
-                    <Stack
-                        direction={{base: 'column', md :'row'}}
-                        display={{base: 'none', md: 'flex'}}
-                        width={{base: 'full', md: 'auto'}}
+                    <Box h={10} />
+                    <Container alignContent="center">
+                        <Box mt='1' fontWeight='semibold' as='h4' lineHeight='tight' noOfLines={1} w="500px">
+                            ¿Que desea visualizar?
+                        </Box>
+                        <br/>
+                        <Stack spacing={4} direction='row' align='center'>
+                            <Box>
+                                <ArrowRightIcon/>
+                            </Box>
+                            <Button colorScheme='teal' size='lg'>
+                                Produccion<br/>General
+                            </Button>
+                            <Button colorScheme='teal' size='lg'>
+                                Produccion<br/>por Panel
+                            </Button>
+                            <Button colorScheme='teal' size='lg'>
+                                Temperatura<br/>Ambiental
+                            </Button>
+                        </Stack>
+                    </Container>
+                    <Box h={10} />
+                    <Box
+                        borderRadius="lg"
+                        mb={6}
+                        p={3}
+                        textAlign="center"
+                        bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')}
+                        css={{ backdropFilter: 'blur(10px)' }}
                     >
-                        <Box as="button" borderRadius="lg" w="100px" borderColor="#0d44db"  borderWidth='1px' bg="#0ddbca">
-                           Operacion 1
-                        </Box>
-                        <Box as="button" borderRadius="lg" w="100px" borderColor="#0d44db"  borderWidth='1px' bg="#0ddbca">
-                            Operacion 2
-                        </Box>
-                        <Box as="button" borderRadius="lg" w="100px" borderColor="#0d44db"  borderWidth='1px' bg="#0ddbca">
-                            Operacion 3
-                        </Box>
-                        <Box as="button" borderRadius="lg" w="100px" borderColor="#0d44db"  borderWidth='1px' bg="#0ddbca">
-                            Operacion 4
-                        </Box>
-                    </Stack>
-                </Container>
-
-                <Box h={20} />
-
-                <Container maxW="container.md">
-
-                    <Box display={{md: 'flex'}}>
-                        <Box flexGrow={1}>
-                            <Heading as="h1" variant="page-title">
-                                Resultados
-                            </Heading>
-                        </Box>
+                        parrafo
                     </Box>
 
-                    <Box borderColor="#0d44db"  borderWidth='1px' borderRadius='lg' overflow='hidden' h={200} p={5} mb={6} align="center">
-                        Resultados
+                    <Box borderColor="#0d44db"  borderWidth='1px' borderRadius='lg' overflow='hidden' p={5} mb={6} align="center">
+                        <Image src={imageHeader} width={700} height={700} alt="header" />
                     </Box>
                 </Container>
             </VStack>
         </Box>
     )
 }
-
-export async function getStaticProps(context) {
-    
-    const res = await fetch("http://localhost:3000/api/showTotal");
-    const posts = await res.json();
-      
-    return {
-    props: {posts},
-    };
-  }
 
 export default Dashboard;

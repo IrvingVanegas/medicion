@@ -1,7 +1,6 @@
 import { Container, Box, Heading, VStack, Text} from "@chakra-ui/react"
 import Head from "next/head"
 import Navbar from "../components/navbar"
-import Graph from "../components/chart/chart"
 
 const History = () => {
     return (
@@ -27,17 +26,14 @@ const History = () => {
 
                 <Box borderColor="#0d44db"  borderWidth='1px' borderRadius='lg' overflow='hidden' h={200} p={5} mb={6} align="left">
                     <Text>DD/MM/AAA</Text>
-                    <Graph />
                 </Box>
 
                 <Box borderColor="#0d44db"  borderWidth='1px' borderRadius='lg' overflow='hidden' h={200} p={5} mb={6} align="left">
                     <Text>DD/MM/AAA</Text>
-                    <Graph />
                 </Box>
 
                 <Box borderColor="#0d44db"  borderWidth='1px' borderRadius='lg' overflow='hidden' h={200} p={5} mb={6} align="left">
                     <Text>DD/MM/AAA</Text>
-                    <Graph />
                 </Box>
 
 
