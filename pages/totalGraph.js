@@ -187,7 +187,7 @@ const TotalGraph = (props) => {
                                 Desviacion<br/>Estandar
                             </Button>
                             <Button colorScheme='teal' size='lg'>
-                                Operacion
+                                Guardar
                             </Button>
                         </Stack>
                 </Container>
