@@ -16,21 +16,21 @@ import {
   } from "chart.js";
 import { Line } from "react-chartjs-2";
 
-const TotalGraph = (props) => {
+const PanelGraph = (props) => {
     const router = useRouter();
     const {posts} = props;
-    let listaCap = [];
+    let listaPanel = [];
     let listaWatts =[];
     
     posts.map((wa) => {
-        listaCap.push(wa.captura);
+        listaPanel.push(wa.nombrePanel);
     });
     posts.map((wa) => {
-        listaWatts.push(wa.watts);
+        listaWatts.push(wa.kilowatts);
     });
 
-    listaCap.reverse();
-    listaWatts.reverse()
+    listaPanel.reverse();
+    listaWatts.reverse();
 
     ChartJS.register(
         CategoryScale,
@@ -51,13 +51,13 @@ const TotalGraph = (props) => {
           },
           title: {
             display: true,
-            text: "Total de Kilowatts en los ultimos 5 dias",
+            text: "KiloWatts producido por cada panel",
           },
         },
       };
 
       const data = {
-        labels: listaCap,
+        labels: listaPanel,
         datasets: [{
             label:"",
             data:listaWatts,
@@ -101,8 +101,8 @@ const TotalGraph = (props) => {
                             <Box>
                                 <ArrowRightIcon/>
                             </Box>
-                            <Button colorScheme='teal' size='lg' onClick={() => router.push('/panelGraph')}>
-                                Produccion<br/>por Panel
+                            <Button colorScheme='teal' size='lg' onClick={() => router.push('/totalGraph')}>
+                                Produccion<br/>General
                             </Button>
                             <Button colorScheme='teal' size='lg' onClick={() => router.push('/tempGraph')}>
                                 Temperatura<br/>Ambiental
@@ -159,7 +159,7 @@ const TotalGraph = (props) => {
 
 export async function getStaticProps(context) {
     
-    const res = await fetch("http://localhost:3000/api/showTotal");
+    const res = await fetch("http://localhost:3000/api/showPanel");
     const posts = await res.json();
       
     return {
@@ -167,4 +167,4 @@ export async function getStaticProps(context) {
     };
   }
 
-export default TotalGraph;
+export default PanelGraph;

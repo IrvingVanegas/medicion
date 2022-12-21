@@ -16,21 +16,21 @@ import {
   } from "chart.js";
 import { Line } from "react-chartjs-2";
 
-const TotalGraph = (props) => {
+const TempGraph = (props) => {
     const router = useRouter();
     const {posts} = props;
     let listaCap = [];
-    let listaWatts =[];
+    let listaCent =[];
     
     posts.map((wa) => {
         listaCap.push(wa.captura);
     });
     posts.map((wa) => {
-        listaWatts.push(wa.watts);
+        listaCent.push(wa.centigrados);
     });
 
     listaCap.reverse();
-    listaWatts.reverse()
+    listaCent.reverse()
 
     ChartJS.register(
         CategoryScale,
@@ -51,7 +51,7 @@ const TotalGraph = (props) => {
           },
           title: {
             display: true,
-            text: "Total de Kilowatts en los ultimos 5 dias",
+            text: "Temperatura C° en los ultimos 5 dias",
           },
         },
       };
@@ -60,7 +60,7 @@ const TotalGraph = (props) => {
         labels: listaCap,
         datasets: [{
             label:"",
-            data:listaWatts,
+            data:listaCent,
             backgroundColor: [
                 "rgb(255, 99, 132)",
                 "rgb(54, 162, 235)",
@@ -101,11 +101,11 @@ const TotalGraph = (props) => {
                             <Box>
                                 <ArrowRightIcon/>
                             </Box>
+                            <Button colorScheme='teal' size='lg' onClick={() => router.push('/totalGraph')}>
+                                Produccion<br/>General
+                            </Button>
                             <Button colorScheme='teal' size='lg' onClick={() => router.push('/panelGraph')}>
                                 Produccion<br/>por Panel
-                            </Button>
-                            <Button colorScheme='teal' size='lg' onClick={() => router.push('/tempGraph')}>
-                                Temperatura<br/>Ambiental
                             </Button>
                         </Stack>
                     </Box>
@@ -159,7 +159,7 @@ const TotalGraph = (props) => {
 
 export async function getStaticProps(context) {
     
-    const res = await fetch("http://localhost:3000/api/showTotal");
+    const res = await fetch("http://localhost:3000/api/showTemp");
     const posts = await res.json();
       
     return {
@@ -167,4 +167,4 @@ export async function getStaticProps(context) {
     };
   }
 
-export default TotalGraph;
+export default TempGraph;

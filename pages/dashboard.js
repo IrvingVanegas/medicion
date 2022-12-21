@@ -1,10 +1,12 @@
 import { Container, Box, Heading, VStack, Stack, useColorModeValue, Button} from "@chakra-ui/react"
 import Image from "next/image";
 import Head from "next/head"
+import { useRouter } from 'next/router'
 import Navbar from "../components/navbar"
 import { ArrowRightIcon } from "@chakra-ui/icons";
 
 const Dashboard = () => {
+    const router = useRouter();
     const imageHeader = '/images/agrovoltaica_11zon-768x439.jpg'
 
     return (
@@ -42,13 +44,13 @@ const Dashboard = () => {
                             <Box>
                                 <ArrowRightIcon/>
                             </Box>
-                            <Button colorScheme='teal' size='lg'>
+                            <Button colorScheme='teal' size='lg' onClick={() => router.push('/totalGraph')}>
                                 Produccion<br/>General
                             </Button>
-                            <Button colorScheme='teal' size='lg'>
+                            <Button colorScheme='teal' size='lg' onClick={() => router.push('/panelGraph')}>
                                 Produccion<br/>por Panel
                             </Button>
-                            <Button colorScheme='teal' size='lg'>
+                            <Button colorScheme='teal' size='lg' onClick={() => router.push('/tempGraph')}>
                                 Temperatura<br/>Ambiental
                             </Button>
                         </Stack>
