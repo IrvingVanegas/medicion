@@ -116,24 +116,21 @@ const TempGraph = (props) => {
                 </Container>
 
                 <Container>
-                    <Stack
-                        direction={{base: 'column', md :'row'}}
-                        display={{base: 'none', md: 'flex'}}
-                        width={{base: 'full', md: 'auto'}}
-                    >
-                        <Box as="button" borderRadius="lg" w="100px" borderColor="#0d44db"  borderWidth='1px' bg="#0ddbca">
-                           Operacion 1
-                        </Box>
-                        <Box as="button" borderRadius="lg" w="100px" borderColor="#0d44db"  borderWidth='1px' bg="#0ddbca">
-                            Operacion 2
-                        </Box>
-                        <Box as="button" borderRadius="lg" w="100px" borderColor="#0d44db"  borderWidth='1px' bg="#0ddbca">
-                            Operacion 3
-                        </Box>
-                        <Box as="button" borderRadius="lg" w="100px" borderColor="#0d44db"  borderWidth='1px' bg="#0ddbca">
-                            Operacion 4
-                        </Box>
-                    </Stack>
+                <br/>
+                        <Stack spacing={4} direction='row' align='center'>
+                            <Button colorScheme='teal' size='lg'>
+                                Operacion
+                            </Button>
+                            <Button colorScheme='teal' size='lg'>
+                                Operacion
+                            </Button>
+                            <Button colorScheme='teal' size='lg'>
+                                Operacion
+                            </Button>
+                            <Button colorScheme='teal' size='lg'>
+                                Operacion
+                            </Button>
+                        </Stack>
                 </Container>
 
                 <Box h={20} />
