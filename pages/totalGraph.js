@@ -3,6 +3,7 @@ import { ArrowRightIcon } from "@chakra-ui/icons";
 import Head from "next/head"
 import Navbar from "../components/navbar"
 import { useRouter } from 'next/router'
+import { useState } from "react";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -18,9 +19,67 @@ import { Line } from "react-chartjs-2";
 
 const TotalGraph = (props) => {
     const router = useRouter();
+    const [promedioCalculado, setPromCalc] = useState(false);
+    const [varianzaCalculada, setVarCalc] = useState(false);
+    const [desviacionSCalculado, setDesSCalc] = useState(false);
+    const [promedio, setPromedio] = useState(0);
+    const [varianza, setVarianza] = useState(0);
+    const [desviacion, setDesviacion] = useState(0);
     const {posts} = props;
     let listaCap = [];
     let listaWatts =[];
+
+    function calcularPromedio() {
+        if (promedioCalculado == true) {
+            <Notification>Promedio ya calculado</Notification>
+        } else {
+            let prom = listaWatts.reduce((acc, curr)=>{
+                return acc + curr
+            }, 0) / listaWatts.length;
+    
+            setPromedio(promedio + prom);
+            setPromCalc(true);
+        }
+    }
+
+    function calcVarianza(){
+        if (varianzaCalculada == true) {
+            <Notification>Varianza ya calculada</Notification>
+        } else {
+            let sum = listaWatts.reduce((acc, curr)=> acc + curr);
+            let num =  listaWatts.length;
+            let mean = sum / num;
+            let variance = 0;
+            listaWatts.forEach(num =>{
+                variance += ((num-mean)*(num-mean));
+            });
+            variance /= num;
+            setVarianza(varianza+variance)
+            setVarCalc(true);
+        }
+    }
+
+    function desviacionStandart(){
+        if (desviacionSCalculado == true) {
+            <Notification>Varianza ya calculada</Notification>
+        } else {
+            let mean = listaWatts.reduce((acc, curr)=>{
+                return acc + curr
+              }, 0) / listaWatts.length;
+               
+              listaWatts = listaWatts.map((k)=>{
+                return (k - mean) ** 2
+              });
+               
+             let sum = listaWatts.reduce((acc, curr)=> acc + curr, 0);
+              
+             let des = Math.sqrt(sum / listaWatts.length);
+    
+             setDesviacion(desviacion+des);
+             setDesSCalc(true);
+        }
+    }
+    
     
     posts.map((wa) => {
         listaCap.push(wa.captura);
@@ -118,14 +177,14 @@ const TotalGraph = (props) => {
                 <Container>
                     <br/>
                         <Stack spacing={4} direction='row' align='center'>
-                            <Button colorScheme='teal' size='lg'>
-                                Operacion
+                            <Button onClick={calcularPromedio} colorScheme='teal' size='lg'>
+                                Promedio
                             </Button>
-                            <Button colorScheme='teal' size='lg'>
-                                Operacion
+                            <Button onClick={calcVarianza} colorScheme='teal' size='lg'>
+                                Varianza
                             </Button>
-                            <Button colorScheme='teal' size='lg'>
-                                Operacion
+                            <Button onClick={desviacionStandart} colorScheme='teal' size='lg'>
+                                Desviacion<br/>Estandar
                             </Button>
                             <Button colorScheme='teal' size='lg'>
                                 Operacion
@@ -133,7 +192,7 @@ const TotalGraph = (props) => {
                         </Stack>
                 </Container>
 
-                <Box h={20} />
+                <br/>
 
                 <Container maxW="container.md">
 
@@ -145,8 +204,12 @@ const TotalGraph = (props) => {
                         </Box>
                     </Box>
 
-                    <Box borderColor="#0d44db"  borderWidth='1px' borderRadius='lg' overflow='hidden' h={200} p={5} mb={6} align="center">
-                        Resultados
+                    <Box borderColor="#0d44db"  borderWidth='1px' borderRadius='lg' overflow='hidden' p={5} mb={6} align="center">
+                        Promedio: {promedio}
+                        <br/>
+                        Varianza: {varianza}
+                        <br/>
+                        Desviacion Estandar: {desviacion}
                     </Box>
                 </Container>
             </VStack>

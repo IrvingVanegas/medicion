@@ -26,6 +26,8 @@
     "@emotion/styled": "^11.10.5",
     "chart.js": "^4.1.1",
     "framer-motion": "^7.10.2",
+    "math.js": "^1.1.46",
+    "mathjs": "^11.5.0",
     "next": "^13.0.7",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.1.0",
