@@ -185,9 +185,6 @@ const PanelGraph = (props) => {
                             <Button onClick={desviacionStandart} colorScheme='teal' size='lg'>
                                 Desviacion<br/>Estandar
                             </Button>
-                            <Button colorScheme='teal' size='lg'>
-                                Operacion
-                            </Button>
                         </Stack>
                 </Container>
 

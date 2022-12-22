@@ -185,9 +185,6 @@ const TempGraph = (props) => {
                             <Button onClick={desviacionStandart} colorScheme='teal' size='lg'>
                                 Desviacion<br/>Estandar
                             </Button>
-                            <Button colorScheme='teal' size='lg'>
-                                Operacion
-                            </Button>
                         </Stack>
                 </Container>
 
@@ -203,7 +200,7 @@ const TempGraph = (props) => {
                         </Box>
                     </Box>
 
-                    <Box borderColor="#0d44db"  borderWidth='1px' borderRadius='lg' overflow='hidden' h={200} p={5} mb={6} align="center">
+                    <Box borderColor="#0d44db"  borderWidth='1px' borderRadius='lg' overflow='hidden' p={5} mb={6} align="center">
                         Promedio: {promedio}
                         <br/>
                         Varianza: {varianza}

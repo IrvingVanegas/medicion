@@ -186,9 +186,6 @@ const TotalGraph = (props) => {
                             <Button onClick={desviacionStandart} colorScheme='teal' size='lg'>
                                 Desviacion<br/>Estandar
                             </Button>
-                            <Button colorScheme='teal' size='lg'>
-                                Guardar
-                            </Button>
                         </Stack>
                 </Container>
 

@@ -64,7 +64,7 @@ const Dashboard = () => {
                         bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')}
                         css={{ backdropFilter: 'blur(10px)' }}
                     >
-                        parrafo
+                        La energía agrovoltaica, también conocida como agrofotovoltaica, consiste en aprovechar una misma superficie de terreno tanto para obtener energía solar como productos agrícolas. Es decir, los paneles solares conviven con los cultivos sobre la misma superficie.
                     </Box>
 
                     <Box borderColor="#0d44db"  borderWidth='1px' borderRadius='lg' overflow='hidden' p={5} mb={6} align="center">
