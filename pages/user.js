@@ -10,26 +10,24 @@ const User = (props) =>{
     const data=posts.map(
         (item)=> <tr>
                     <td>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {item.idusuarios}
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
+                    <td>-----</td>
                     <td>
-                        &nbsp;&nbsp;
                         {item.nombre}
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
+                    <td>-----</td>
                     <td>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {item.apellido}
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
+                    <td>-----</td>
                     <td>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
                         {item.email}
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
-                    <td>{item.tipo}</td>
+                    <td>-----</td>
+                    <td>
+                        {item.tipo}
+                    </td>
                   </tr>
     )
     return(
@@ -49,7 +47,7 @@ const User = (props) =>{
                     <Box display={{md: 'flex'}}>
                         <Box flexGrow={1}>
                             <Heading as="h2" variant="page-title">
-                                Registro de Usuarios
+                                Usuarios
                             </Heading>
                         </Box>
                     </Box>
@@ -59,13 +57,17 @@ const User = (props) =>{
                         <main className="registro">
                             <VStack paddingStart="1.5rem" maxW="container.md">
                                 <div>
-                                    <table class="table table-striped">
+                                    <table class="table table-striped" width="100%">
                                         <thead>
                                             <tr>
                                             <th>ID</th>
+                                            <th></th>
                                             <th>Nombre</th>
+                                            <th></th>
                                             <th>Apellido</th>
+                                            <th></th>
                                             <th>Correo</th>
+                                            <th></th>
                                             <th>Tipo</th>
                                             </tr>
                                         </thead>
