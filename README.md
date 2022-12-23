@@ -1,7 +1,7 @@
 # medicion
 Interfaz de visualización de datos
 
-#Para ejecutar
+# Para ejecutar
 
 Importar base de datos que se encuentra en la carpeta baseDatos
 
