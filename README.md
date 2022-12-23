@@ -3,7 +3,7 @@ Interfaz de visualización de datos
 
 #Para ejecutar
 
-Importar base de datos
+Importar base de datos que se encuentra en la carpeta baseDatos
 
 Renombrar .env.local.example a env.local, en caso de ser necesario modificar el contenido con sus respectivos datos
 MYSQL_HOST= 
